@@ -1,11 +1,16 @@
 function TodoCard(props) {
   return (
-    <div className='border rounded-lg p-4'>
-      <div className='mb-5'>
-        <p>{props.todo}</p>
+    <div className='border rounded-lg p-4 flex justify-between items-center'>
+      <div className='flex flex-col'>
+        <div className='mb-5'>
+          <p>{props.todo.todo}</p>
+        </div>
+        <div>
+          <p>{props.todo.description}</p>
+        </div>
       </div>
       <div>
-        <p>{props.description}</p>
+        <input type='checkbox' name='completed' id='' />
       </div>
     </div>
   );

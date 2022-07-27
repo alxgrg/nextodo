@@ -1,8 +1,17 @@
+import { useState } from 'react';
+
 import Head from 'next/head';
 
 import AddTodoForm from '../components/AddTodoForm';
+import TodoCard from '../components/TodoCard';
 
-export default function Home() {
+export default function Home(props) {
+  const [todos, setTodos] = useState(props.todos);
+
+  function addTodoHandler(todo) {
+    setTodos([...todos, todo]);
+  }
+
   return (
     <>
       <Head>
@@ -15,9 +24,41 @@ export default function Home() {
           <div className='mb-3'>
             <h2 className='text-3xl text-white'>Add a Todo, why dont you?</h2>
           </div>
-          <AddTodoForm />
+          <AddTodoForm onAddTodo={addTodoHandler} />
+        </section>
+        <section className='w-2/3 h-screen p-8'>
+          <div className='mb-3'>
+            <h2 className='text-3xl text-gray-700'>Todo List</h2>
+          </div>
+          {todos &&
+            todos.map((todo) => (
+              <div className='mb-3' key={todo.id}>
+                <TodoCard todo={todo} />
+              </div>
+            ))}
         </section>
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      todos: [
+        {
+          id: '1',
+          todo: 'Finish todo app',
+          description: 'JUST DO IT!!!',
+          completed: false,
+        },
+        {
+          id: '2',
+          todo: 'Get groceries',
+          description: 'Write grocery list',
+          completed: false,
+        },
+      ],
+    },
+  };
 }

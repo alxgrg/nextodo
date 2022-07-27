@@ -4,7 +4,8 @@ function AddTodoForm(props) {
   const todoInputRef = useRef();
   const descriptionInputRef = useRef();
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     const enteredTodo = todoInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 
@@ -13,10 +14,13 @@ function AddTodoForm(props) {
       return;
     }
     const newTodo = {
+      id: Math.random(),
       todo: enteredTodo,
       description: enteredDescription,
+      completed: false,
     };
-    props.onSubmit(newTodo);
+    props.onAddTodo(newTodo);
+    (todoInputRef.current.value = ''), (descriptionInputRef.current.value = '');
   }
 
   return (
