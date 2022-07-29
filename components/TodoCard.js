@@ -1,11 +1,11 @@
 function TodoCard(props) {
-  const { todo, description, completed } = props.todo;
+  const { title, description, completed } = props.todo;
 
   return (
     <div className='relative border rounded-lg p-4 flex justify-between items-center'>
       <div className='flex flex-col'>
         <div className='mb-5'>
-          <p className='text-2xl'>{todo}</p>
+          <p className='text-2xl'>{title}</p>
         </div>
         {description && (
           <div>

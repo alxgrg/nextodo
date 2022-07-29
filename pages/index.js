@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { authOptions } from './api/auth/[...nextauth]';
+import { unstable_getServerSession } from 'next-auth/next';
 
 import Head from 'next/head';
 
 import AddTodoForm from '../components/AddTodoForm';
 import TodoCard from '../components/TodoCard';
+// import { PrismaClient } from '@prisma/client';
+
+import { prisma } from '../helpers/db';
+
+// const prisma = new PrismaClient();
 
 export default function Home(props) {
   const [todos, setTodos] = useState(props.todos);
@@ -59,23 +66,30 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  const session = await unstable_getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      props: {
+        todos: [],
+      },
+    };
+  }
+
+  const currentUser = await prisma.user.findFirst({
+    where: { email: session.user.email },
+  });
+
+  const currentUserId = currentUser.id;
+
+  const todos = await prisma.todo.findMany({
+    where: { userId: currentUserId },
+  });
+
   return {
     props: {
-      todos: [
-        {
-          id: '1',
-          todo: 'Finish todo app',
-          description: 'JUST DO IT!!!',
-          completed: false,
-        },
-        {
-          id: '2',
-          todo: 'Get groceries',
-          description: 'Write grocery list',
-          completed: false,
-        },
-      ],
+      todos: JSON.parse(JSON.stringify(todos)),
     },
   };
 }
