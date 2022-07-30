@@ -16,10 +16,38 @@ import { prisma } from '../helpers/db';
 export default function Home(props) {
   const [todos, setTodos] = useState(props.todos);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { data: session, status } = useSession();
 
-  function addTodoHandler(todo) {
-    setTodos([...todos, todo]);
+  async function addTodoHandler(todo) {
+    // setTodos([...todos, todo]);
+    setIsLoading(true);
+    const user = session.user.id;
+    try {
+      const response = await fetch('/api/todo', {
+        method: 'POST',
+        body: JSON.stringify(todo),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || 'There was a problem adding your todo.'
+        );
+      }
+
+      todo.id = data.newTodo.id;
+      setIsLoading(false);
+      setTodos([...todos, todo]);
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+      setIsLoading(false);
+    }
   }
 
   if (status === 'loading') {

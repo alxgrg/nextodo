@@ -14,8 +14,7 @@ function AddTodoForm(props) {
       return;
     }
     const newTodo = {
-      id: Math.random(),
-      todo: enteredTodo,
+      title: enteredTodo,
       description: enteredDescription,
       completed: false,
     };
