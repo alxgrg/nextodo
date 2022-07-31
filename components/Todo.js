@@ -63,9 +63,32 @@ function Todo(props) {
     }
   }
 
-  // async function completeTodoHandler(todoId) {
+  async function completeTodoHandler(id, completed) {
+    try {
+      const response = await fetch('/api/todo', {
+        method: 'PATCH',
+        body: JSON.stringify({ id, completed }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  // }
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong!');
+      }
+
+      const updatedTodos = todos;
+
+      const todoIndex = todos.findIndex((todo) => todo.id === id);
+      updatedTodos[todoIndex].completed = completed;
+
+      setTodos([...updatedTodos]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -86,7 +109,11 @@ function Todo(props) {
           {todos &&
             todos.map((todo) => (
               <div className='mb-3' key={todo.id}>
-                <TodoCard todo={todo} onDeleteTodo={deleteTodoHandler} />
+                <TodoCard
+                  todo={todo}
+                  onDeleteTodo={deleteTodoHandler}
+                  onCompleteTodo={completeTodoHandler}
+                />
               </div>
             ))}
         </section>

@@ -46,4 +46,29 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Could not delete todo!' });
     }
   }
+
+  if (req.method === 'PATCH') {
+    const { id, completed } = req.body;
+    const session = await unstable_getServerSession(req, res, authOptions);
+    const currentUser = await prisma.user.findFirst({
+      where: { email: session.user.email },
+    });
+
+    const currentUserId = currentUser.id;
+
+    try {
+      const completeTodo = await prisma.todo.updateMany({
+        where: {
+          id: id,
+          userId: currentUserId,
+        },
+        data: {
+          completed: completed,
+        },
+      });
+      res.status(200).json({ message: 'Updated todo status', completeTodo });
+    } catch (error) {
+      res.status(500).json({ message: 'Something went wrong!' });
+    }
+  }
 }

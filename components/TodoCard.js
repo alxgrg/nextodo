@@ -14,9 +14,13 @@ function TodoCard(props) {
         )}
       </div>
       <div>
-        <div>
-          <label htmlFor='completed'>Completed: </label>
-          <input type='checkbox' name='completed' id='' />
+        <div className='mb-3'>
+          <button
+            className='p-2 rounded bg-green-600 text-white'
+            onClick={() => props.onCompleteTodo(id, !completed)}
+          >
+            {completed ? 'Complete' : 'Not complete'}
+          </button>
         </div>
         <div className=''>
           <button
