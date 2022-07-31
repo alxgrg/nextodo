@@ -6,6 +6,7 @@ function AddTodoForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     const enteredTodo = todoInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 

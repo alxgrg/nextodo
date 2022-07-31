@@ -19,9 +19,31 @@ export default async function handler(req, res) {
           userId: currentUserId,
         },
       });
-      res.status(200).json({ message: 'created todo', newTodo });
+      res.status(201).json({ message: 'created todo', newTodo });
     } catch (error) {
       res.status(500).json({ message: 'Something went wrong' });
+    }
+  }
+
+  if (req.method === 'DELETE') {
+    const { id } = req.body;
+    const session = await unstable_getServerSession(req, res, authOptions);
+    const currentUser = await prisma.user.findFirst({
+      where: { email: session.user.email },
+    });
+
+    const currentUserId = currentUser.id;
+
+    try {
+      const deleteTodo = await prisma.todo.deleteMany({
+        where: {
+          id: id,
+          userId: currentUserId,
+        },
+      });
+      res.status(201).json({ message: 'Todo deleted', deleteTodo });
+    } catch (error) {
+      res.status(500).json({ message: 'Could not delete todo!' });
     }
   }
 }

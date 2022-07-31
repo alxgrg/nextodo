@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 
 import AddTodoForm from './AddTodoForm';
 import TodoCard from './TodoCard';
@@ -40,12 +40,39 @@ function Todo(props) {
     }
   }
 
+  async function deleteTodoHandler(id) {
+    try {
+      const response = await fetch('/api/todo', {
+        method: 'DELETE',
+        body: JSON.stringify({
+          id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong!');
+      }
+      const updatedTodos = todos.filter((todo) => todo.id !== id);
+      setTodos(updatedTodos);
+      console.log(data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  // async function completeTodoHandler(todoId) {
+
+  // }
+
   if (status === 'loading') {
     return <p>Loading...</p>;
   }
   if (session) {
     return (
-      <div className='flex'>
+      <div className='flex min-h-screen'>
         <section className='w-1/3 bg-gray-800 p-8'>
           <div className='mb-3'>
             <h2 className='text-3xl text-white'>Add a Todo, why dont you?</h2>
@@ -59,7 +86,7 @@ function Todo(props) {
           {todos &&
             todos.map((todo) => (
               <div className='mb-3' key={todo.id}>
-                <TodoCard todo={todo} />
+                <TodoCard todo={todo} onDeleteTodo={deleteTodoHandler} />
               </div>
             ))}
         </section>

@@ -1,5 +1,5 @@
 function TodoCard(props) {
-  const { title, description, completed } = props.todo;
+  const { id, title, description, completed } = props.todo;
 
   return (
     <div className='relative border rounded-lg p-4 flex justify-between items-center'>
@@ -14,10 +14,19 @@ function TodoCard(props) {
         )}
       </div>
       <div>
-        <label htmlFor='completed'>Completed: </label>
-        <input type='checkbox' name='completed' id='' />
+        <div>
+          <label htmlFor='completed'>Completed: </label>
+          <input type='checkbox' name='completed' id='' />
+        </div>
+        <div className=''>
+          <button
+            className='p-2 rounded bg-red-600 text-white'
+            onClick={() => props.onDeleteTodo(id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      <div className='absolute top-2 right-2'>X</div>
     </div>
   );
 }
