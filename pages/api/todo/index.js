@@ -48,7 +48,15 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PATCH') {
-    const { id, completed } = req.body;
+    let dataObj;
+    if (req.body.title && req.body.description) {
+      const { id, title, description, completed } = req.body;
+      dataObj = { id, title, description, completed };
+    } else {
+      const { id, completed } = req.body;
+      dataObj = { id, completed };
+    }
+    console.log(dataObj);
     const session = await unstable_getServerSession(req, res, authOptions);
     const currentUser = await prisma.user.findFirst({
       where: { email: session.user.email },
@@ -59,11 +67,11 @@ export default async function handler(req, res) {
     try {
       const completeTodo = await prisma.todo.updateMany({
         where: {
-          id: id,
+          id: dataObj.id,
           userId: currentUserId,
         },
         data: {
-          completed: completed,
+          ...dataObj,
         },
       });
       res.status(200).json({ message: 'Updated todo status', completeTodo });
