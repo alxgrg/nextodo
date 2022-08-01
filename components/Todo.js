@@ -3,10 +3,12 @@ import { useSession, signIn } from 'next-auth/react';
 
 import AddTodoForm from './AddTodoForm';
 import TodoCard from './TodoCard';
+import EditModal from './EditModal';
 
 function Todo(props) {
   const [todos, setTodos] = useState(props.todos);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { data: session, status } = useSession();
 
@@ -57,7 +59,6 @@ function Todo(props) {
       }
       const updatedTodos = todos.filter((todo) => todo.id !== id);
       setTodos(updatedTodos);
-      console.log(data.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -90,9 +91,18 @@ function Todo(props) {
     }
   }
 
+  function editModeHandler() {
+    setIsEditing((prevState) => !prevState);
+  }
+
+  function editTodoHandler(todo) {
+    // todo
+  }
+
   if (status === 'loading') {
     return <p>Loading...</p>;
   }
+
   if (session) {
     return (
       <div className='flex min-h-screen'>
@@ -106,11 +116,13 @@ function Todo(props) {
           <div className='mb-3'>
             <h2 className='text-3xl text-gray-700'>Todo List</h2>
           </div>
+          {isEditing && <EditModal onClose={editModeHandler} />}
           {todos &&
             todos.map((todo) => (
               <div className='mb-3' key={todo.id}>
                 <TodoCard
                   todo={todo}
+                  onEditMode={editModeHandler}
                   onDeleteTodo={deleteTodoHandler}
                   onCompleteTodo={completeTodoHandler}
                 />

@@ -16,6 +16,14 @@ function TodoCard(props) {
       <div>
         <div className='mb-3'>
           <button
+            className='p-2 rounded bg-gray-600 text-white'
+            onClick={props.onEditMode}
+          >
+            Edit
+          </button>
+        </div>
+        <div className='mb-3'>
+          <button
             className='p-2 rounded bg-green-600 text-white'
             onClick={() => props.onCompleteTodo(id, !completed)}
           >
