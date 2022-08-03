@@ -36,6 +36,11 @@ export async function getServerSideProps({ req, res }) {
   const currentUserId = currentUser.id;
 
   const todos = await prisma.todo.findMany({
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
     where: { userId: currentUserId },
   });
 

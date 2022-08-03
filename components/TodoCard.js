@@ -8,12 +8,11 @@ function TodoCard(props) {
 
   return (
     <>
-      <div className='relative border rounded-lg p-4 flex justify-between items-center'>
-        <div className='flex flex-col'>
-          <div className='mb-5'>
-            <p className='text-2xl'>{todo}</p>
-          </div>
+      <div className='relative border rounded-lg p-4 flex justify-between'>
+        <div className='p-2'>
+          <p className='text-2xl'>{todo}</p>
         </div>
+
         <div>
           <div className='mb-3'>
             <button

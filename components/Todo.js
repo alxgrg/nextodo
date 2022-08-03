@@ -33,7 +33,7 @@ function Todo(props) {
       setIsLoading(false);
 
       todo.id = data.newTodo.id;
-      setTodos([...todos, todo]);
+      setTodos([todo, ...todos]);
     } catch (error) {
       console.log(error.message);
       setIsLoading(false);
@@ -123,16 +123,18 @@ function Todo(props) {
 
   if (session) {
     return (
-      <div className='flex min-h-screen'>
-        <section className='w-1/3 bg-gray-800 p-8 mt-16'>
-          <div className='fixed'>
+      <div className='flex flex-col min-h-screen'>
+        <section className='flex flex-col w-full bg-gray-800 p-8 mt-16'>
+          <div className=''>
             <div className='mb-3'>
-              <h2 className='text-3xl text-white'>Add a Todo, why dont you?</h2>
+              <h2 className='text-3xl text-white text-center'>
+                Add a Todo, why dont you?
+              </h2>
             </div>
             <AddTodoForm onAddTodo={addTodoHandler} />
           </div>
         </section>
-        <section className='w-2/3 p-8'>
+        <section className='w-full p-8'>
           <div className='mb-3'>
             <h2 className='text-3xl text-gray-700'>Todo List</h2>
           </div>

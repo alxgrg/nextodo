@@ -21,19 +21,18 @@ function AddTodoForm(props) {
   }
 
   return (
-    <form className='flex flex-col' onSubmit={handleSubmit}>
-      <div className='flex flex-col'>
-        <div>
-          <input
-            type='text'
-            placeholder='Todo...'
-            name='todo'
-            className='rounded p-4 text-xl w-full mb-3'
-            ref={todoInputRef}
-            required
-          />
-        </div>
+    <form className='flex justify-center' onSubmit={handleSubmit}>
+      <div className='w-2/3'>
+        <input
+          type='text'
+          placeholder='Todo...'
+          name='todo'
+          className='rounded p-4 text-xl w-full mb-3'
+          ref={todoInputRef}
+          required
+        />
       </div>
+      <div className='p-3' />
       <div>
         <button className='rounded p-4 bg-blue-600 text-white'>Add Todo</button>
       </div>
