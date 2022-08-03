@@ -59,8 +59,7 @@ model VerificationToken {
 model Todo {
   id          String   @id @default(cuid())
   userId      String
-  title       String
-  description String?
+  todo       String
   completed   Boolean
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

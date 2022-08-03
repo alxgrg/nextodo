@@ -89,11 +89,11 @@ function Todo(props) {
     }
   }
 
-  async function editTodoHandler(id, title, description, completed) {
+  async function editTodoHandler(id, todo, completed) {
     try {
       const response = await fetch('/api/todo', {
         method: 'PATCH',
-        body: JSON.stringify({ id, title, description, completed }),
+        body: JSON.stringify({ id, todo, completed }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -109,8 +109,7 @@ function Todo(props) {
 
       const todoIndex = todos.findIndex((todo) => todo.id === id);
       updatedTodos[todoIndex].completed = completed;
-      updatedTodos[todoIndex].title = title;
-      updatedTodos[todoIndex].description = description;
+      updatedTodos[todoIndex].todo = todo;
 
       setTodos([...updatedTodos]);
     } catch (error) {
@@ -125,11 +124,13 @@ function Todo(props) {
   if (session) {
     return (
       <div className='flex min-h-screen'>
-        <section className='w-1/3 bg-gray-800 p-8'>
-          <div className='mb-3'>
-            <h2 className='text-3xl text-white'>Add a Todo, why dont you?</h2>
+        <section className='w-1/3 bg-gray-800 p-8 mt-16'>
+          <div className='fixed'>
+            <div className='mb-3'>
+              <h2 className='text-3xl text-white'>Add a Todo, why dont you?</h2>
+            </div>
+            <AddTodoForm onAddTodo={addTodoHandler} />
           </div>
-          <AddTodoForm onAddTodo={addTodoHandler} />
         </section>
         <section className='w-2/3 p-8'>
           <div className='mb-3'>

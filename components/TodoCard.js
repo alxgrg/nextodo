@@ -4,20 +4,15 @@ import EditModal from './EditModal';
 
 function TodoCard(props) {
   const [isEditing, setIsEditing] = useState(false);
-  const { id, title, description, completed } = props.todo;
+  const { id, todo, completed } = props.todo;
 
   return (
     <>
       <div className='relative border rounded-lg p-4 flex justify-between items-center'>
         <div className='flex flex-col'>
           <div className='mb-5'>
-            <p className='text-2xl'>{title}</p>
+            <p className='text-2xl'>{todo}</p>
           </div>
-          {description && (
-            <div>
-              <p>{description}</p>
-            </div>
-          )}
         </div>
         <div>
           <div className='mb-3'>

@@ -5,7 +5,7 @@ function NavBar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className='w-full bg-gray-800 border-b border-gray-700 p-4 flex justify-between text-white items-center'>
+    <nav className='w-full bg-gray-800 border-b border-gray-700 p-4 flex justify-between text-white items-center fixed'>
       <div className=' text-3xl underline'>
         <Link href='/'>
           <h1>Nextodo!</h1>

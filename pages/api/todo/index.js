@@ -49,9 +49,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'PATCH') {
     let dataObj;
-    if (req.body.title && req.body.description) {
-      const { id, title, description, completed } = req.body;
-      dataObj = { id, title, description, completed };
+    if (req.body.todo) {
+      const { id, todo, completed } = req.body;
+      dataObj = { id, todo, completed };
     } else {
       const { id, completed } = req.body;
       dataObj = { id, completed };
