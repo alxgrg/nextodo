@@ -15,6 +15,23 @@ function TodoCard(props) {
 
         <div>
           <div className='mb-3'>
+            {completed ? (
+              <button
+                className='p-2 rounded bg-green-600 text-white'
+                onClick={() => props.onCompleteTodo(id, !completed)}
+              >
+                ✓
+              </button>
+            ) : (
+              <button
+                className='p-2 rounded bg-slate-800 text-white'
+                onClick={() => props.onCompleteTodo(id, !completed)}
+              >
+                -
+              </button>
+            )}
+          </div>
+          <div className='mb-3'>
             <button
               className='p-2 rounded bg-gray-600 text-white'
               onClick={() => setIsEditing(true)}
@@ -22,20 +39,12 @@ function TodoCard(props) {
               Edit
             </button>
           </div>
-          <div className='mb-3'>
-            <button
-              className='p-2 rounded bg-green-600 text-white'
-              onClick={() => props.onCompleteTodo(id, !completed)}
-            >
-              {completed ? 'Complete' : 'Not complete'}
-            </button>
-          </div>
           <div className=''>
             <button
               className='p-2 rounded bg-red-600 text-white'
               onClick={() => props.onDeleteTodo(id)}
             >
-              Delete
+              X
             </button>
           </div>
         </div>

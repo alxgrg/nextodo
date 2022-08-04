@@ -21,8 +21,11 @@ function AddTodoForm(props) {
   }
 
   return (
-    <form className='flex justify-center' onSubmit={handleSubmit}>
-      <div className='w-2/3'>
+    <form
+      className='flex justify-center sm:flex-row flex-col'
+      onSubmit={handleSubmit}
+    >
+      <div className='w-full sm:w-2/3'>
         <input
           type='text'
           placeholder='Todo...'
@@ -34,7 +37,12 @@ function AddTodoForm(props) {
       </div>
       <div className='p-3' />
       <div>
-        <button className='rounded p-4 bg-blue-600 text-white'>Add Todo</button>
+        <button
+          className='rounded p-4 bg-blue-600 text-white'
+          disabled={props.isLoading}
+        >
+          Add Todo
+        </button>
       </div>
     </form>
   );

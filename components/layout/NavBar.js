@@ -5,7 +5,7 @@ function NavBar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className='w-full bg-gray-800 border-b border-gray-700 p-4 flex justify-between text-white items-center fixed'>
+    <nav className='z-40 w-full bg-gray-800 border-b border-gray-700 p-4 flex justify-between text-white items-center'>
       <div className=' text-3xl underline'>
         <Link href='/'>
           <h1>Nextodo!</h1>
@@ -13,7 +13,7 @@ function NavBar() {
       </div>
       {session && (
         <div className='flex'>
-          <div className='mr-3'>
+          <div className='hidden sm:block mr-3'>
             {session.user.name ? (
               <p>{session.user.name}</p>
             ) : (
