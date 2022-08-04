@@ -1,18 +1,14 @@
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]';
+// import { unstable_getServerSession } from 'next-auth/next';
+
 import { prisma } from '../../../helpers/db';
+import { getUserId } from '../../../helpers/backend';
 
 export default async function handler(req, res) {
+  const currentUserId = await getUserId(req, res);
   if (req.method === 'POST') {
-    const session = await unstable_getServerSession(req, res, authOptions);
-    const currentUser = await prisma.user.findFirst({
-      where: { email: session.user.email },
-    });
-
-    const currentUserId = currentUser.id;
     try {
       const todo = req.body;
-      // console.log(session.user);
+
       const newTodo = await prisma.todo.create({
         data: {
           ...todo,
@@ -27,12 +23,6 @@ export default async function handler(req, res) {
 
   if (req.method === 'DELETE') {
     const { id } = req.body;
-    const session = await unstable_getServerSession(req, res, authOptions);
-    const currentUser = await prisma.user.findFirst({
-      where: { email: session.user.email },
-    });
-
-    const currentUserId = currentUser.id;
 
     try {
       const deleteTodo = await prisma.todo.deleteMany({
@@ -49,6 +39,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'PATCH') {
     let dataObj;
+
     if (req.body.todo) {
       const { id, todo, completed } = req.body;
       dataObj = { id, todo, completed };
@@ -56,13 +47,6 @@ export default async function handler(req, res) {
       const { id, completed } = req.body;
       dataObj = { id, completed };
     }
-    console.log(dataObj);
-    const session = await unstable_getServerSession(req, res, authOptions);
-    const currentUser = await prisma.user.findFirst({
-      where: { email: session.user.email },
-    });
-
-    const currentUserId = currentUser.id;
 
     try {
       const completeTodo = await prisma.todo.updateMany({

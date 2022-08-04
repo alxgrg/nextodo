@@ -18,7 +18,7 @@ function Todo(props) {
     setIsLoading(true);
 
     try {
-      const user = session.user.id;
+      // const user = session.user.id;
       const response = await fetch('/api/todo', {
         method: 'POST',
         body: JSON.stringify(todo),
@@ -95,6 +95,8 @@ function Todo(props) {
       const todoIndex = todos.findIndex((todo) => todo.id === id);
       updatedTodos[todoIndex].completed = completed;
 
+      setIsLoading(false);
+
       setTodos([...updatedTodos]);
     } catch (error) {
       console.log(error.message);
@@ -126,7 +128,7 @@ function Todo(props) {
       updatedTodos[todoIndex].completed = completed;
       updatedTodos[todoIndex].todo = todo;
 
-      setIsEditing(false);
+      setIsEditing({ id: '', show: false });
       setTodos([...updatedTodos]);
       setIsLoading(false);
     } catch (error) {
