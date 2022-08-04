@@ -7,6 +7,10 @@ import TodoCard from './TodoCard';
 function Todo(props) {
   const [todos, setTodos] = useState(props.todos);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState({
+    id: '',
+    show: false,
+  });
 
   const { data: session, status } = useSession();
 
@@ -122,6 +126,7 @@ function Todo(props) {
       updatedTodos[todoIndex].completed = completed;
       updatedTodos[todoIndex].todo = todo;
 
+      setIsEditing(false);
       setTodos([...updatedTodos]);
       setIsLoading(false);
     } catch (error) {
@@ -160,6 +165,8 @@ function Todo(props) {
                   onDeleteTodo={deleteTodoHandler}
                   onCompleteTodo={completeTodoHandler}
                   onEditTodo={editTodoHandler}
+                  isEditing={isEditing}
+                  onSetIsEditing={setIsEditing}
                 />
               </div>
             ))}

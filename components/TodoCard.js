@@ -34,7 +34,9 @@ function TodoCard(props) {
           <div className='mb-3'>
             <button
               className='p-2 rounded bg-gray-600 text-white'
-              onClick={() => setIsEditing(true)}
+              onClick={() =>
+                props.onSetIsEditing({ id: props.todo.id, show: true })
+              }
             >
               Edit
             </button>
@@ -49,9 +51,9 @@ function TodoCard(props) {
           </div>
         </div>
       </div>
-      {isEditing && (
+      {props.isEditing.show && props.isEditing.id === props.todo.id && (
         <EditModal
-          onClose={() => setIsEditing(false)}
+          onClose={() => props.onSetIsEditing(false)}
           todo={props.todo}
           onEditTodo={props.onEditTodo}
         />
