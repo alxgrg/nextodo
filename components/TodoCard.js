@@ -22,6 +22,7 @@ function TodoCard(props) {
           <div className='mb-3'>
             {completed ? (
               <button
+                title='Mark todo incomplete'
                 className='p-2 rounded bg-green-600 text-white'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
@@ -29,7 +30,8 @@ function TodoCard(props) {
               </button>
             ) : (
               <button
-                className='p-2 rounded bg-slate-800 text-white'
+                title='Mark todo complete'
+                className='p-2 rounded bg-slate-400 text-white'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
                 <IncompleteIcon />
@@ -38,7 +40,8 @@ function TodoCard(props) {
           </div>
           <div className='mb-3'>
             <button
-              className='p-2 rounded bg-gray-600 text-white'
+              title='Edit todo'
+              className='p-2 rounded bg-gray-700 text-white'
               onClick={() =>
                 props.onSetIsEditing({ id: props.todo.id, show: true })
               }
@@ -48,6 +51,7 @@ function TodoCard(props) {
           </div>
           <div className=''>
             <button
+              title='Delete todo'
               className='p-2 rounded bg-red-600 text-white'
               onClick={() => props.onDeleteTodo(id)}
             >
