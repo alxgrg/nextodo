@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { Image } from 'next/image';
 
 import EditModal from './EditModal';
+import EditIcon from '../assets/icons/EditIcon';
+import DeleteIcon from '../assets/icons/DeleteIcon';
+import CompleteIcon from '../assets/icons/CompleteIcon';
+import IncompleteIcon from '../assets/icons/IncompleteIcon';
 
 function TodoCard(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -20,14 +25,14 @@ function TodoCard(props) {
                 className='p-2 rounded bg-green-600 text-white'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
-                ✓
+                <CompleteIcon />
               </button>
             ) : (
               <button
                 className='p-2 rounded bg-slate-800 text-white'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
-                -
+                <IncompleteIcon />
               </button>
             )}
           </div>
@@ -38,7 +43,7 @@ function TodoCard(props) {
                 props.onSetIsEditing({ id: props.todo.id, show: true })
               }
             >
-              Edit
+              <EditIcon />
             </button>
           </div>
           <div className=''>
@@ -46,7 +51,7 @@ function TodoCard(props) {
               className='p-2 rounded bg-red-600 text-white'
               onClick={() => props.onDeleteTodo(id)}
             >
-              X
+              <DeleteIcon />
             </button>
           </div>
         </div>
