@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useSession, signIn } from 'next-auth/react';
+
+import NotificationContext from '../store/nottification-context';
 
 import AddTodoForm from './AddTodoForm';
 import TodoCard from './TodoCard';
@@ -12,10 +14,16 @@ function Todo(props) {
     show: false,
   });
 
+  const notificationCtx = useContext(NotificationContext);
+
   const { data: session, status } = useSession();
 
   async function addTodoHandler(todo) {
-    setIsLoading(true);
+    notificationCtx.showNotification({
+      title: 'Adding todo...',
+      message: 'Your todo is being todone.',
+      status: 'pending',
+    });
 
     try {
       // const user = session.user.id;
@@ -34,13 +42,20 @@ function Todo(props) {
           data.message || 'There was a problem adding your todo.'
         );
       }
-      setIsLoading(false);
+      notificationCtx.showNotification({
+        title: 'Success!',
+        message: 'Todo successfully added!',
+        status: 'success',
+      });
 
       todo.id = data.newTodo.id;
       setTodos([todo, ...todos]);
     } catch (error) {
-      console.log(error.message);
-      setIsLoading(false);
+      notificationCtx.showNotification({
+        title: 'Error!',
+        message: error.message || 'Something went wrong!',
+        status: 'error',
+      });
     }
   }
 

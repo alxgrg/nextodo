@@ -1,10 +1,37 @@
-import ReactDOM from 'react-dom';
+import { useContext } from 'react';
 
-export default function Notification() {
-  return ReactDOM.createPortal(
-    <div className='p-5 bg-orange-500 text-white text-2xl'>
-      <p>This is a notification</p>
-    </div>,
-    document.getElementById('notifications')
+import NotificationContext from '../../store/nottification-context';
+
+function Notification(props) {
+  const notificationCtx = useContext(NotificationContext);
+
+  const { title, message, status } = props;
+
+  let statusClasses = '';
+
+  if (status === 'success') {
+    statusClasses = 'bg-green-600';
+  }
+
+  if (status === 'error') {
+    statusClasses = 'bg-red-600';
+  }
+
+  if (status === 'pending') {
+    statusClasses = 'bg-blue-400';
+  }
+
+  const notificationClasses =
+    'flex justify-between items-center fixed left-0 bottom-0 h-20 w-full bg-slate-800 text-white p-5';
+
+  const activeClasses = notificationClasses + ' ' + statusClasses;
+
+  return (
+    <div className={activeClasses} onClick={notificationCtx.hideNotification}>
+      <h2>{title}</h2>
+      <p>{message}</p>
+    </div>
   );
 }
+
+export default Notification;

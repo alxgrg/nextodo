@@ -1,13 +1,17 @@
 import { SessionProvider } from 'next-auth/react';
+import Layout from '../components/layout/Layout';
 
-import NavBar from '../components/layout/NavBar';
+import { NotificationContextProvider } from '../store/nottification-context';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      <NavBar />
-      <Component {...pageProps} />
+      <NotificationContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </NotificationContextProvider>
     </SessionProvider>
   );
 }
