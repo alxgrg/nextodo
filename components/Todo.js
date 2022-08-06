@@ -2,9 +2,11 @@ import { useState, useContext } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 
 import NotificationContext from '../store/nottification-context';
+import ModalContext from '../store/modal-context';
 
 import AddTodoForm from './AddTodoForm';
 import TodoCard from './TodoCard';
+import Modal from './ui/Modal';
 
 function Todo(props) {
   const [todos, setTodos] = useState(props.todos);
@@ -15,6 +17,7 @@ function Todo(props) {
   });
 
   const notificationCtx = useContext(NotificationContext);
+  const modalCtx = useContext(ModalContext);
 
   const { data: session, status } = useSession();
 
@@ -143,7 +146,7 @@ function Todo(props) {
       updatedTodos[todoIndex].completed = completed;
       updatedTodos[todoIndex].todo = todo;
 
-      setIsEditing({ id: '', show: false });
+      modalCtx.hideModal();
       setTodos([...updatedTodos]);
       setIsLoading(false);
     } catch (error) {
@@ -169,6 +172,12 @@ function Todo(props) {
             <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
           </div>
         </section>
+        {/* testing */}
+        <button className='p-3 bg-red-600' onClick={modalCtx.showModal}>
+          Show modal(test)
+        </button>
+        {modalCtx.modal && <Modal>Testing the modal</Modal>}
+
         <section className='w-full p-8'>
           <div className='mb-3'>
             <h2 className='text-3xl text-gray-700'>Todo List</h2>
@@ -183,7 +192,7 @@ function Todo(props) {
                   onCompleteTodo={completeTodoHandler}
                   onEditTodo={editTodoHandler}
                   isEditing={isEditing}
-                  onSetIsEditing={setIsEditing}
+                  onSetIsEditing={modalCtx.showModal}
                 />
               </div>
             ))}
