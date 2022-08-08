@@ -31,11 +31,6 @@ function NavBar() {
                 {session.user.email}
               </button>
             )}
-            {/* <div className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-slate-500 ring-1 ring-black ring-opacity-5 focus:outline-none'>
-              <div className='text-gray-700 block px-4 py-2 text-sm'>
-                <Link href='/me'>Profile</Link>
-              </div>
-            </div> */}
 
             {showDropdown && (
               <div
@@ -47,7 +42,10 @@ function NavBar() {
               >
                 <div className='py-1' role='none'>
                   <Link href='/me'>
-                    <a className='text-gray-700 block px-4 py-2 text-sm'>
+                    <a
+                      className='text-gray-700 block px-4 py-2 text-sm'
+                      onClick={() => setShowDropdown(false)}
+                    >
                       Account settings
                     </a>
                   </Link>
