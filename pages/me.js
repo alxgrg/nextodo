@@ -1,9 +1,11 @@
 import { useRef } from 'react';
+import Router from 'next/router';
 
 import Profile from '../components/Profile';
 
 import { authOptions } from './api/auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth/next';
+import { getSession } from 'next-auth/react';
 
 export default function Me(props) {
   const nameInputRef = useRef();
@@ -28,6 +30,7 @@ export default function Me(props) {
       if (!response.ok) {
         throw new Error(data.message || 'Could not change name!');
       }
+      Router.reload();
     } catch (error) {
       console.log(error.message);
     }
