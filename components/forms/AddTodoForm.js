@@ -32,6 +32,7 @@ function AddTodoForm(props) {
           name='todo'
           className='rounded p-4 text-xl w-full mb-3'
           ref={todoInputRef}
+          autoComplete='off'
           required
         />
       </div>

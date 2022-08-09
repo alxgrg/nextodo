@@ -4,9 +4,8 @@ import { useSession, signIn } from 'next-auth/react';
 import NotificationContext from '../store/nottification-context';
 import ModalContext from '../store/modal-context';
 
-import AddTodoForm from './AddTodoForm';
+import AddTodoForm from './forms/AddTodoForm';
 import TodoCard from './TodoCard';
-import Modal from './ui/Modal';
 
 function Todo(props) {
   const [todos, setTodos] = useState(props.todos);
@@ -29,7 +28,6 @@ function Todo(props) {
     });
 
     try {
-      // const user = session.user.id;
       const response = await fetch('/api/todo', {
         method: 'POST',
         body: JSON.stringify(todo),
@@ -159,56 +157,56 @@ function Todo(props) {
     return <p>Loading...</p>;
   }
 
-  if (session) {
-    return (
-      <div className='flex flex-col min-h-screen'>
-        <section className='flex flex-col w-full bg-gray-800 px-4 py-12'>
-          <div className=''>
-            <div className='mb-3'>
-              <h2 className='text-3xl text-white text-center'>Add a Todo...</h2>
-            </div>
-            <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
-          </div>
-        </section>
-
-        <section className='w-full p-8'>
-          <div className='mb-3'>
-            <h2 className='text-3xl text-gray-700'>Todo List</h2>
-          </div>
-          {/* {isEditing && <EditModal onClose={editModeHandler} />} */}
-          {todos &&
-            todos.map((todo) => (
-              <div className='mb-3' key={todo.id}>
-                <TodoCard
-                  todo={todo}
-                  onDeleteTodo={deleteTodoHandler}
-                  onCompleteTodo={completeTodoHandler}
-                  onEditTodo={editTodoHandler}
-                  isEditing={isEditing}
-                  onSetIsEditing={modalCtx.showModal}
-                />
-              </div>
-            ))}
-        </section>
-      </div>
-    );
-  }
-
+  // if (session) {
   return (
-    <div className='pt-12 px-4'>
-      <div className='pt-12'>
-        <p>Not Signed in...</p>
+    <div className='flex flex-col min-h-screen'>
+      <section className='flex flex-col w-full bg-gray-800 px-4 py-12'>
+        <div className=''>
+          <div className='mb-3'>
+            <h2 className='text-3xl text-white text-center'>Add a Todo...</h2>
+          </div>
+          <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
+        </div>
+      </section>
 
-        <br />
-        <button
-          className='p-2 bg-slate-600 text-white'
-          onClick={() => signIn()}
-        >
-          Sign in
-        </button>
-      </div>
+      <section className='w-full p-8'>
+        <div className='mb-3'>
+          <h2 className='text-3xl text-gray-700'>Todo List</h2>
+        </div>
+        {/* {isEditing && <EditModal onClose={editModeHandler} />} */}
+        {todos &&
+          todos.map((todo) => (
+            <div className='mb-3' key={todo.id}>
+              <TodoCard
+                todo={todo}
+                onDeleteTodo={deleteTodoHandler}
+                onCompleteTodo={completeTodoHandler}
+                onEditTodo={editTodoHandler}
+                isEditing={isEditing}
+                onSetIsEditing={modalCtx.showModal}
+              />
+            </div>
+          ))}
+      </section>
     </div>
   );
+  // }
+
+  // return (
+  //   <div className='pt-12 px-4'>
+  //     <div className='pt-12'>
+  //       <p>Not Signed in...</p>
+
+  //       <br />
+  //       <button
+  //         className='p-2 bg-slate-600 text-white'
+  //         onClick={() => signIn()}
+  //       >
+  //         Sign in
+  //       </button>
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default Todo;
