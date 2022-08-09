@@ -172,11 +172,6 @@ function Todo(props) {
             <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
           </div>
         </section>
-        {/* testing */}
-        <button className='p-3 bg-red-600' onClick={modalCtx.showModal}>
-          Show modal(test)
-        </button>
-        {modalCtx.modal && <Modal>Testing the modal</Modal>}
 
         <section className='w-full p-8'>
           <div className='mb-3'>

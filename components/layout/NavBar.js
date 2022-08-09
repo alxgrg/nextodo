@@ -17,7 +17,7 @@ function NavBar() {
       </div>
       {session && (
         <div className='flex'>
-          <div className='hidden sm:block mr-3'>
+          <div className='sm:block mr-3'>
             {session.user.name ? (
               <button
                 onClick={() => setShowDropdown((prevState) => !prevState)}
@@ -62,10 +62,6 @@ function NavBar() {
               </div>
             )}
           </div>
-
-          {/* <a href='#' onClick={() => signOut()}>
-            Sign out
-          </a> */}
         </div>
       )}
       {!session && (

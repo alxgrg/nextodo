@@ -11,10 +11,12 @@ export function ModalContextProvider(props) {
 
   function showModalHandler(id) {
     setActiveModal({ id: id });
+    document.body.style.overflow = 'hidden';
   }
 
   function hideModalHandler() {
     setActiveModal(null);
+    document.body.removeAttribute('style');
   }
 
   const context = {
