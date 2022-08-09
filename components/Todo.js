@@ -165,9 +165,7 @@ function Todo(props) {
         <section className='flex flex-col w-full bg-gray-800 px-4 py-12'>
           <div className=''>
             <div className='mb-3'>
-              <h2 className='text-3xl text-white text-center'>
-                Add a Todo, why dont you?
-              </h2>
+              <h2 className='text-3xl text-white text-center'>Add a Todo...</h2>
             </div>
             <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
           </div>
