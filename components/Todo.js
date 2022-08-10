@@ -177,6 +177,7 @@ function Todo(props) {
         {todos &&
           todos.map((todo) => (
             <div className='mb-3' key={todo.id}>
+              {/* TODO finish loading state yadayadayada */}
               <TodoCard
                 todo={todo}
                 onDeleteTodo={deleteTodoHandler}
@@ -184,6 +185,7 @@ function Todo(props) {
                 onEditTodo={editTodoHandler}
                 isEditing={isEditing}
                 onSetIsEditing={modalCtx.showModal}
+                isLoading={isLoading}
               />
             </div>
           ))}

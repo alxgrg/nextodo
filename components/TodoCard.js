@@ -47,6 +47,8 @@ function TodoCard(props) {
           <div className='p-2'>
             <p className='text-2xl break-all'>{todo}</p>
           </div>
+          {/* TODO Finish loading state.... */}
+          {props.isLoading && <div>Loading</div>}
         </div>
 
         <div className='flex flex-col'>
