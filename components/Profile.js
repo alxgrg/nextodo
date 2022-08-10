@@ -1,9 +1,14 @@
-import { useRef } from 'react';
-import Router from 'next/router';
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
+
+import NotificationContext from '../store/nottification-context';
 
 import EditUserProfileForm from './forms/EditUserProfileForm';
 
 export default function Profile({ user }) {
+  const router = useRouter();
+  const notificationCtx = useContext(NotificationContext);
+
   async function changeNameHandler(name) {
     try {
       const response = await fetch('/api/user', {
@@ -21,13 +26,23 @@ export default function Profile({ user }) {
       if (!response.ok) {
         throw new Error(data.message || 'Could not change name!');
       }
-      Router.reload();
+      router.reload();
     } catch (error) {
-      console.log(error.message);
+      notificationCtx.showNotification({
+        title: 'Error!',
+        message: data.message,
+        status: 'error',
+      });
     }
   }
 
   async function deleteAccountHandler() {
+    notificationCtx.showNotification({
+      title: 'Deleting account...',
+      message: 'Your account is being deleted.',
+      status: 'pending',
+    });
+
     try {
       const response = await fetch('/api/user', {
         method: 'DELETE',
@@ -43,9 +58,20 @@ export default function Profile({ user }) {
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong.');
       }
-      console.log(data.message);
+
+      notificationCtx.showNotification({
+        title: 'Success!',
+        message: data.message,
+        status: 'success',
+      });
+
+      router.reload();
     } catch (error) {
-      console.log(error.message);
+      notificationCtx.showNotification({
+        title: 'Error!',
+        message: error.message,
+        status: 'error',
+      });
     }
   }
 
