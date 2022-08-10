@@ -1,14 +1,12 @@
 import { useState, useContext } from 'react';
-import { Image } from 'next/image';
 
-import EditModal from './EditModal';
+import ModalContext from '../store/modal-context';
+
 import EditIcon from '../assets/icons/EditIcon';
 import DeleteIcon from '../assets/icons/DeleteIcon';
 import CompleteIcon from '../assets/icons/CompleteIcon';
 import IncompleteIcon from '../assets/icons/IncompleteIcon';
 import EditModalForm from './forms/EditModalForm';
-
-import ModalContext from '../store/modal-context';
 import Modal from './ui/Modal';
 
 function TodoCard(props) {
@@ -52,25 +50,6 @@ function TodoCard(props) {
         </div>
 
         <div className='flex flex-col'>
-          {/* <div className='mb-3'>
-            {completed ? (
-              <button
-                title='Mark todo incomplete'
-                className='p-2 rounded bg-green-600 text-white'
-                onClick={() => props.onCompleteTodo(id, !completed)}
-              >
-                <CompleteIcon />
-              </button>
-            ) : (
-              <button
-                title='Mark todo complete'
-                className='p-2 rounded bg-slate-400 text-white'
-                onClick={() => props.onCompleteTodo(id, !completed)}
-              >
-                <IncompleteIcon />
-              </button>
-            )}
-          </div> */}
           <div className='mb-3'>
             <button
               title='Edit todo'
@@ -91,13 +70,6 @@ function TodoCard(props) {
           </div>
         </div>
       </div>
-      {/* {props.isEditing.show && props.isEditing.id === props.todo.id && (
-        <EditModal
-          onClose={() => props.onSetIsEditing(false)}
-          todo={props.todo}
-          onEditTodo={props.onEditTodo}
-        />
-      )} */}
       {modalCtx.modal && modalCtx.modal.id === props.todo.id && (
         <Modal>
           <EditModalForm

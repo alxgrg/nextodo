@@ -9,7 +9,7 @@ const ModalContext = createContext({
 export function ModalContextProvider(props) {
   const [activeModal, setActiveModal] = useState();
 
-  function showModalHandler(id) {
+  function showModalHandler(id = 'default') {
     setActiveModal({ id: id });
     document.body.style.overflow = 'hidden';
   }

@@ -2,12 +2,16 @@ import { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import NotificationContext from '../store/nottification-context';
+import ModalContext from '../store/modal-context';
 
 import EditUserProfileForm from './forms/EditUserProfileForm';
+import Modal from './ui/Modal';
+import ConfirmDeleteAccount from './ui/ConfirmDeleteAccount';
 
 export default function Profile({ user }) {
   const router = useRouter();
   const notificationCtx = useContext(NotificationContext);
+  const modalCtx = useContext(ModalContext);
 
   async function changeNameHandler(name) {
     try {
@@ -37,6 +41,8 @@ export default function Profile({ user }) {
   }
 
   async function deleteAccountHandler() {
+    modalCtx.hideModal();
+
     notificationCtx.showNotification({
       title: 'Deleting account...',
       message: 'Your account is being deleted.',
@@ -84,10 +90,18 @@ export default function Profile({ user }) {
       </div>
       <button
         className='p-3 bg-red-600 text-white'
-        onClick={deleteAccountHandler}
+        onClick={modalCtx.showModal}
       >
         Delete account
       </button>
+      {modalCtx.modal && (
+        <Modal>
+          <ConfirmDeleteAccount
+            onConfirm={deleteAccountHandler}
+            onCancel={modalCtx.hideModal}
+          />
+        </Modal>
+      )}
     </div>
   );
 }
