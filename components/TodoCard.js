@@ -19,13 +19,38 @@ function TodoCard(props) {
 
   return (
     <>
-      <div className='relative border rounded-lg p-4 flex justify-between'>
-        <div className='p-2'>
-          <p className='text-2xl'>{todo}</p>
+      <div
+        className={`relative border ${
+          completed && 'border-green-600 '
+        } rounded-lg p-4 flex flex-col sm:flex-row justify-between`}
+      >
+        <div className='flex items-center'>
+          <div className='mr-4'>
+            {completed ? (
+              <button
+                title='Mark todo incomplete'
+                className='p-2 rounded text-green-600'
+                onClick={() => props.onCompleteTodo(id, !completed)}
+              >
+                <CompleteIcon />
+              </button>
+            ) : (
+              <button
+                title='Mark todo complete'
+                className='p-2 rounded text-black'
+                onClick={() => props.onCompleteTodo(id, !completed)}
+              >
+                <IncompleteIcon />
+              </button>
+            )}
+          </div>
+          <div className='p-2'>
+            <p className='text-2xl break-all'>{todo}</p>
+          </div>
         </div>
 
-        <div>
-          <div className='mb-3'>
+        <div className='flex flex-col'>
+          {/* <div className='mb-3'>
             {completed ? (
               <button
                 title='Mark todo incomplete'
@@ -43,20 +68,11 @@ function TodoCard(props) {
                 <IncompleteIcon />
               </button>
             )}
-          </div>
+          </div> */}
           <div className='mb-3'>
-            {/* <button
-              title='Edit todo'
-              className='p-2 rounded bg-gray-700 text-white'
-              onClick={() =>
-                props.onSetIsEditing({ id: props.todo.id, show: true })
-              }
-            >
-              <EditIcon />
-            </button> */}
             <button
               title='Edit todo'
-              className='p-2 rounded bg-gray-700 text-white'
+              className='rounded text-black'
               onClick={() => props.onSetIsEditing(props.todo.id)}
             >
               <EditIcon />
@@ -65,7 +81,7 @@ function TodoCard(props) {
           <div className=''>
             <button
               title='Delete todo'
-              className='p-2 rounded bg-red-600 text-white'
+              className='rounded text-red-500'
               onClick={() => props.onDeleteTodo(id)}
             >
               <DeleteIcon />
