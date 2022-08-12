@@ -24,7 +24,9 @@ function TodoCard(props) {
       <div
         className={`relative border ${
           completed && 'border-green-600 '
-        } rounded-lg p-4 flex flex-col sm:flex-row justify-between`}
+        } rounded-lg p-4 flex flex-col sm:flex-row justify-between ${
+          props.isLoading && 'animate-pulse'
+        }`}
       >
         <div className='flex items-center'>
           <div className='mr-2'>
@@ -49,8 +51,6 @@ function TodoCard(props) {
           <div className='p-2'>
             <p className='text-2xl break-word'>{todo}</p>
           </div>
-          {/* TODO Finish loading state.... */}
-          {props.isLoading && <div>Loading</div>}
         </div>
 
         <div className='flex sm:flex-col flex-row justify-end'>
