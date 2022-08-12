@@ -76,7 +76,7 @@ export default function Home(props) {
           <div className='p-3' />
           <p>
             <button
-              className='p-3 rounded bg-orange-600'
+              className='rounded-2xl p-4 bg-blue-600'
               onClick={() => signIn()}
             >
               Sign in

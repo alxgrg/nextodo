@@ -30,7 +30,7 @@ function AddTodoForm(props) {
           type='text'
           placeholder='Todo...'
           name='todo'
-          className='rounded-3xl p-4 text-xl w-full'
+          className='rounded-2xl p-4 text-xl w-full border'
           ref={todoInputRef}
           autoComplete='off'
           required
@@ -47,7 +47,7 @@ function AddTodoForm(props) {
       <div className='p-3' />
       <div>
         <button
-          className='rounded-3xl p-4 bg-blue-600 text-white'
+          className='rounded-2xl p-4 bg-blue-600 text-white'
           disabled={props.isLoading}
         >
           Add Todo

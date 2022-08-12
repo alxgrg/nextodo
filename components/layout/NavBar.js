@@ -10,7 +10,7 @@ function NavBar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className='z-40 w-full bg-gray-400 border-b border-gray-500 p-4 flex justify-between text-white items-center'>
+    <nav className='z-40 w-full bg-black border-b border-gray-500 p-4 flex justify-between text-white items-center'>
       <div className='w-40 text-3xl underline'>
         <Link href='/'>
           <a className='w-4'>

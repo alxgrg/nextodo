@@ -19,10 +19,10 @@ export default function EditUserProfileForm(props) {
         type='text'
         name='name'
         ref={nameInputRef}
-        className='rounded border p-4 text-xl w-full mb-3'
+        className='rounded-2xl border p-4 text-xl w-full mb-3'
         placeholder='Change name here...'
       />
-      <button className='p-3 bg-slate-800 text-white rounded' type='submit'>
+      <button className='p-3 bg-blue-600 text-white rounded' type='submit'>
         Change name
       </button>
     </form>

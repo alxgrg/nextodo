@@ -156,10 +156,10 @@ function Todo(props) {
 
   return (
     <div className='flex flex-col min-h-screen'>
-      <section className='flex flex-col w-full bg-gray-400 px-4 py-12'>
+      <section className='flex flex-col w-full bg-white px-4 py-12'>
         <div className=''>
           <div className='mb-3'>
-            <h2 className='text-3xl text-white text-center'>Add a Todo...</h2>
+            <h2 className='text-3xl text-black text-center'>Add a Todo...</h2>
           </div>
           <AddTodoForm onAddTodo={addTodoHandler} isLoading={isLoading} />
         </div>
@@ -174,9 +174,9 @@ function Todo(props) {
       ) : (
         <section className='w-full p-8'>
           <div className='mb-3'>
-            <h2 className='text-3xl text-gray-700'>Todo List</h2>
+            <h2 className='text-3xl text-black'>Todo List</h2>
           </div>
-          {todos &&
+          {todos.length > 0 ? (
             todos.map((todo) => (
               <div className='mb-3' key={todo.id}>
                 <TodoCard
@@ -189,7 +189,12 @@ function Todo(props) {
                   isLoading={isLoading}
                 />
               </div>
-            ))}
+            ))
+          ) : (
+            <p className='text-xl text-center pt-4 text-gray-600'>
+              Nothing Todo...
+            </p>
+          )}
         </section>
       )}
     </div>

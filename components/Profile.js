@@ -83,17 +83,23 @@ export default function Profile({ user }) {
 
   return (
     <div className='flex justify-center'>
-      <div className='p-5 flex flex-col text-center'>
+      <div className='p-5 flex flex-col text-center items-center'>
+        <div className='p-3' />
         <h1 className='text-3xl'>{user.name}</h1>
         <p>{user.email}</p>
+        <div className='p-2' />
         <EditUserProfileForm onChangeName={changeNameHandler} />
+        <div className='p-5' />
+        <div>
+          <button
+            className='p-3 bg-red-600 text-white rounded'
+            onClick={modalCtx.showModal}
+          >
+            Delete account
+          </button>
+        </div>
       </div>
-      <button
-        className='p-3 bg-red-600 text-white'
-        onClick={modalCtx.showModal}
-      >
-        Delete account
-      </button>
+
       {modalCtx.modal && (
         <Modal>
           <ConfirmDeleteAccount
