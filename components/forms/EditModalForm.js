@@ -24,13 +24,20 @@ export default function EditModalForm(props) {
     <div>
       <form onSubmit={submitHandler}>
         <div>
-          <input
+          {/* <input
             type='text'
             className='rounded p-4 text-xl w-full mb-3 border-2'
             value={todo}
             onFocus={() => setError(null)}
             onChange={inputHandler}
-          />
+          /> */}
+          <textarea
+            type='text'
+            className='rounded p-4 text-xl w-full mb-3 border-2'
+            value={todo}
+            onFocus={() => setError(null)}
+            onChange={inputHandler}
+          ></textarea>
           {error && <p className='text-red-600'>{error}</p>}
         </div>
         <div>

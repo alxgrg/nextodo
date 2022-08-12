@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import HeroIcon from '../../assets/icons/HeroIcon';
 
 function NavBar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -9,10 +10,12 @@ function NavBar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className='z-40 w-full bg-gray-800 border-b border-gray-700 p-4 flex justify-between text-white items-center'>
-      <div className=' text-3xl underline'>
+    <nav className='z-40 w-full bg-gray-400 border-b border-gray-500 p-4 flex justify-between text-white items-center'>
+      <div className='w-40 text-3xl underline'>
         <Link href='/'>
-          <a>Nextodo!</a>
+          <a className='w-4'>
+            <HeroIcon />
+          </a>
         </Link>
       </div>
       {session && (

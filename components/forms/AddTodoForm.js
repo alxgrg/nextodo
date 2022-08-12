@@ -35,6 +35,14 @@ function AddTodoForm(props) {
           autoComplete='off'
           required
         />
+        {/* <textarea
+          name='todo'
+          id=''
+          ref={todoInputRef}
+          className='rounded-3xl p-4 text-xl w-full'
+          autoComplete='off'
+          required
+        ></textarea> */}
       </div>
       <div className='p-3' />
       <div>

@@ -160,7 +160,7 @@ function Todo(props) {
   // if (session) {
   return (
     <div className='flex flex-col min-h-screen'>
-      <section className='flex flex-col w-full bg-gray-800 px-4 py-12'>
+      <section className='flex flex-col w-full bg-gray-400 px-4 py-12'>
         <div className=''>
           <div className='mb-3'>
             <h2 className='text-3xl text-white text-center'>Add a Todo...</h2>

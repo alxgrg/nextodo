@@ -23,11 +23,11 @@ function TodoCard(props) {
         } rounded-lg p-4 flex flex-col sm:flex-row justify-between`}
       >
         <div className='flex items-center'>
-          <div className='mr-4'>
+          <div className='mr-2'>
             {completed ? (
               <button
                 title='Mark todo incomplete'
-                className='p-2 rounded text-green-600'
+                className='rounded text-green-600'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
                 <CompleteIcon />
@@ -35,7 +35,7 @@ function TodoCard(props) {
             ) : (
               <button
                 title='Mark todo complete'
-                className='p-2 rounded text-black'
+                className='rounded text-black'
                 onClick={() => props.onCompleteTodo(id, !completed)}
               >
                 <IncompleteIcon />
@@ -43,13 +43,13 @@ function TodoCard(props) {
             )}
           </div>
           <div className='p-2'>
-            <p className='text-2xl break-all'>{todo}</p>
+            <p className='text-2xl break-word'>{todo}</p>
           </div>
           {/* TODO Finish loading state.... */}
           {props.isLoading && <div>Loading</div>}
         </div>
 
-        <div className='flex flex-col'>
+        <div className='flex sm:flex-col flex-row justify-end'>
           <div className='mb-3'>
             <button
               title='Edit todo'
