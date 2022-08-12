@@ -10,11 +10,15 @@ import EditModalForm from './forms/EditModalForm';
 import Modal from './ui/Modal';
 
 function TodoCard(props) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { id, todo, completed } = props.todo;
 
   const modalCtx = useContext(ModalContext);
-
+  async function completeTodoHandler() {
+    setIsLoading(true);
+    const res = await props.onCompleteTodo(id, !completed);
+    setIsLoading(false);
+  }
   return (
     <>
       <div
@@ -28,7 +32,7 @@ function TodoCard(props) {
               <button
                 title='Mark todo incomplete'
                 className='rounded text-green-600'
-                onClick={() => props.onCompleteTodo(id, !completed)}
+                onClick={completeTodoHandler}
               >
                 <CompleteIcon />
               </button>
@@ -36,7 +40,7 @@ function TodoCard(props) {
               <button
                 title='Mark todo complete'
                 className='rounded text-black'
-                onClick={() => props.onCompleteTodo(id, !completed)}
+                onClick={completeTodoHandler}
               >
                 <IncompleteIcon />
               </button>

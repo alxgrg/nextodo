@@ -28,3 +28,47 @@ body {
     background: black;
   }
 } */
+
+.container {
+  text-align: center;
+}
+
+.loading-el {
+  opacity: 0;
+}
+
+.animation-scale-1 {
+  -webkit-animation: spin 1s infinite linear alternate;
+  animation: spin 1s infinite linear alternate;
+  overflow: visible;
+  transform-origin: center center;
+}
+.animation-scale-2 {
+  -webkit-animation: spin 1s infinite 0.5s linear alternate;
+  animation: spin 1s infinite linear 0.5s alternate;
+  overflow: visible;
+  transform-origin: center center;
+}
+.animation-scale-3 {
+  -webkit-animation: spin 1s infinite linear 1s alternate;
+  animation: spin 1s infinite linear 1s alternate;
+  overflow: visible;
+  transform-origin: center center;
+}
+@keyframes spin {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}

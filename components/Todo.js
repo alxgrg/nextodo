@@ -6,6 +6,7 @@ import ModalContext from '../store/modal-context';
 
 import AddTodoForm from './forms/AddTodoForm';
 import TodoCard from './TodoCard';
+import LoadingIcon from '../assets/icons/LoadingIcon';
 
 function Todo(props) {
   const [todos, setTodos] = useState(props.todos);
@@ -153,11 +154,6 @@ function Todo(props) {
     }
   }
 
-  if (status === 'loading') {
-    return <p>Loading...</p>;
-  }
-
-  // if (session) {
   return (
     <div className='flex flex-col min-h-screen'>
       <section className='flex flex-col w-full bg-gray-400 px-4 py-12'>
@@ -169,46 +165,35 @@ function Todo(props) {
         </div>
       </section>
 
-      <section className='w-full p-8'>
-        <div className='mb-3'>
-          <h2 className='text-3xl text-gray-700'>Todo List</h2>
+      {status === 'loading' ? (
+        <div className='flex justify-center mt-5'>
+          <div className='w-32'>
+            <LoadingIcon />
+          </div>
         </div>
-        {/* {isEditing && <EditModal onClose={editModeHandler} />} */}
-        {todos &&
-          todos.map((todo) => (
-            <div className='mb-3' key={todo.id}>
-              {/* TODO finish loading state yadayadayada */}
-              <TodoCard
-                todo={todo}
-                onDeleteTodo={deleteTodoHandler}
-                onCompleteTodo={completeTodoHandler}
-                onEditTodo={editTodoHandler}
-                isEditing={isEditing}
-                onSetIsEditing={modalCtx.showModal}
-                isLoading={isLoading}
-              />
-            </div>
-          ))}
-      </section>
+      ) : (
+        <section className='w-full p-8'>
+          <div className='mb-3'>
+            <h2 className='text-3xl text-gray-700'>Todo List</h2>
+          </div>
+          {todos &&
+            todos.map((todo) => (
+              <div className='mb-3' key={todo.id}>
+                <TodoCard
+                  todo={todo}
+                  onDeleteTodo={deleteTodoHandler}
+                  onCompleteTodo={completeTodoHandler}
+                  onEditTodo={editTodoHandler}
+                  isEditing={isEditing}
+                  onSetIsEditing={modalCtx.showModal}
+                  isLoading={isLoading}
+                />
+              </div>
+            ))}
+        </section>
+      )}
     </div>
   );
-  // }
-
-  // return (
-  //   <div className='pt-12 px-4'>
-  //     <div className='pt-12'>
-  //       <p>Not Signed in...</p>
-
-  //       <br />
-  //       <button
-  //         className='p-2 bg-slate-600 text-white'
-  //         onClick={() => signIn()}
-  //       >
-  //         Sign in
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default Todo;
