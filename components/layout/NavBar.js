@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
@@ -6,6 +6,27 @@ import HeroIcon from '../../assets/icons/HeroIcon';
 
 function NavBar() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef();
+
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener('mousedown', handleOutsideClicks);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', handleOutsideClicks);
+    };
+  }, [showDropdown]);
+
+  //create a function in your component to handleOutsideClicks
+  const handleOutsideClicks = (event) => {
+    if (
+      showDropdown &&
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target)
+    ) {
+      setShowDropdown(false);
+    }
+  };
 
   const { data: session, status } = useSession();
 
@@ -42,6 +63,7 @@ function NavBar() {
                 aria-orientation='vertical'
                 aria-labelledby='menu-button'
                 tabIndex='-1'
+                ref={dropdownRef}
               >
                 <div className='py-1' role='none'>
                   <Link href='/me'>
